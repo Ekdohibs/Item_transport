@@ -12,7 +12,7 @@ minetest.register_node("item_transport:filter", {
 	tiles = {"filter_top.png", "filter_top.png", "filter_output.png",
 		"filter_input.png", "filter_side.png", "filter_top.png"},
 	paramtype2 = "facedir",
-	groups = {snappy=2,choppy=2,oddly_breakable_by_hand=2,tubedevice=1},
+	groups = {snappy=2,choppy=2,oddly_breakable_by_hand=2,tubedevice=1,mesecon=2},
 	legacy_facedir_simple = true,
 	sounds = default.node_sound_wood_defaults(),
 	on_construct = function(pos)
@@ -30,6 +30,9 @@ minetest.register_node("item_transport:filter", {
 		local inv = meta:get_inventory()
 		return inv:is_empty("main")
 	end,
+	mesecons={effector={action_on=function(pos,node)
+					minetest.registered_nodes[node.name].on_punch(pos,node,nil)
+				end}},
 	on_punch = function (pos, node, puncher)
 	local meta = minetest.env:get_meta(pos);
 	local inv = meta:get_inventory()
