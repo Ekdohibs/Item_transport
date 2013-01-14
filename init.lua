@@ -218,13 +218,13 @@ minetest.register_entity("item_transport:tubed_item", {
 	end
 	
 	node = minetest.env:get_node(self.start_pos)
-	if minetest.get_item_group(node.name,"tubedevice_receiver")==1 then
+	if moved and minetest.get_item_group(node.name,"tubedevice_receiver")==1 then
 		if minetest.registered_nodes[node.name].tube and minetest.registered_nodes[node.name].tube.insert_object then
 			leftover = minetest.registered_nodes[node.name].tube.insert_object(self.start_pos,node,stack,velocity)
 		else
 			leftover = stack
 		end
-		--drop_pos=minetest.env:find_node_near(start_pos,1,"air")
+		--drop_pos=minetest.env:find_node_near(self.start_pos,1,"air")
 		--if drop_pos and not leftover:is_empty() then minetest.item_drop(leftover,"",drop_pos) end
 		--self.object:remove()
 		if leftover:is_empty() then
